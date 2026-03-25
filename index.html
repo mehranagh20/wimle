@@ -4,418 +4,322 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WIMLE | ICLR 2026</title>
-  <meta name="description" content="WIMLE: Uncertainty-Aware World Models with IMLE for Sample-Efficient Continuous Control (ICLR 2026)." />
+  <meta name="description" content="WIMLE: Uncertainty-Aware World Models with IMLE for Sample-Efficient Continuous Control. ICLR 2026." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #070a14;
-      --bg-elev: #0d1224;
-      --panel: #10172d;
-      --panel-2: #0b1021;
-      --text: #ecf1ff;
-      --muted: #b7c2de;
-      --line: #263256;
-      --accent: #82a7ff;
-      --accent-2: #79f0d0;
-      --maxw: 1120px;
-      --shadow: 0 18px 45px rgba(2, 5, 15, 0.5);
+      --bg: #0b0e1a;
+      --surface: #111627;
+      --border: #1f2744;
+      --text: #e4eaf6;
+      --dim: #9ba8c9;
+      --accent: #7ea8ff;
+      --green: #6ee7b7;
+      --maxw: 860px;
     }
 
-    * { box-sizing: border-box; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      font-family: "Manrope", sans-serif;
+      font-family: "Inter", sans-serif;
       color: var(--text);
-      line-height: 1.6;
-      background:
-        radial-gradient(900px 500px at 12% -10%, rgba(130, 167, 255, 0.24), transparent 58%),
-        radial-gradient(900px 500px at 92% -15%, rgba(121, 240, 208, 0.12), transparent 62%),
-        linear-gradient(180deg, #060913 0%, #070a14 100%);
+      background: var(--bg);
+      line-height: 1.7;
     }
 
-    .container {
-      width: min(var(--maxw), 92vw);
+    .wrap {
+      max-width: var(--maxw);
       margin: 0 auto;
+      padding: 0 24px;
     }
 
+    /* ── top bar ── */
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(10px);
-      background: rgba(7, 10, 20, 0.78);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11, 14, 26, 0.82);
+      border-bottom: 1px solid var(--border);
     }
-
-    .topbar-inner {
-      min-height: 78px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+    .topbar .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
     }
-
     .lab {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: 0.2px;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.95rem;
     }
-
     .lab img {
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.22);
-      background: #fff;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.2); background: #fff;
     }
-
-    .contact {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.96rem;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 999px;
-      padding: 8px 13px;
+    .topbar-links { display: flex; gap: 18px; }
+    .topbar-links a {
+      color: var(--dim); text-decoration: none; font-size: 0.88rem; font-weight: 500;
+      transition: color 0.15s;
     }
+    .topbar-links a:hover { color: var(--text); }
 
+    /* ── hero ── */
     .hero {
-      padding: 70px 0 30px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+      padding: 72px 0 40px;
+      border-bottom: 1px solid var(--border);
     }
-
-    .kicker {
+    .venue {
       display: inline-block;
-      font-size: 0.84rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent-2);
-      margin-bottom: 10px;
-      font-weight: 700;
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--green); font-weight: 700;
+      margin-bottom: 16px;
     }
-
     h1 {
-      margin: 0;
-      font-family: "IBM Plex Serif", serif;
-      font-size: clamp(2rem, 4.2vw, 3.2rem);
-      line-height: 1.12;
-      letter-spacing: -0.3px;
-      max-width: 1020px;
+      font-family: "Crimson Pro", serif;
+      font-size: clamp(1.7rem, 3.8vw, 2.7rem);
+      line-height: 1.18;
+      max-width: 780px;
+      margin: 0 auto 18px;
     }
-
     .authors {
-      margin-top: 14px;
-      color: #cfdaff;
-      font-weight: 600;
-      font-size: 1rem;
+      color: #c5cfee; font-size: 1rem; font-weight: 500;
+    }
+    .affiliation {
+      color: var(--dim); font-size: 0.92rem; margin-top: 4px;
+    }
+    .links {
+      margin-top: 22px;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+    }
+    .links a {
+      display: inline-flex; align-items: center; gap: 7px;
+      text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      padding: 9px 16px; border-radius: 8px;
+      transition: transform 0.12s;
+    }
+    .links a:hover { transform: translateY(-1px); }
+    .link-primary {
+      color: #0a1433; background: linear-gradient(90deg, #8bb4ff, #b4ccff);
+    }
+    .link-ghost {
+      color: #c8d5f0;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.03);
     }
 
-    .abstract {
-      margin-top: 16px;
-      max-width: 930px;
-      color: var(--muted);
-      font-size: 1.03rem;
-    }
-
-    .hero-note {
-      margin-top: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #d6e5ff;
-      font-size: 0.95rem;
-      border: 1px solid rgba(130, 167, 255, 0.4);
-      background: rgba(130, 167, 255, 0.09);
-      border-radius: 999px;
-      padding: 7px 12px;
-    }
-
-    .actions {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 10px;
-      font-weight: 700;
-      border: 1px solid transparent;
-      transition: transform 0.15s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-
-    .btn-primary {
-      color: #061132;
-      background: linear-gradient(90deg, #8fb1ff, #b6cbff);
-    }
-
-    .btn-secondary {
-      color: #dce6ff;
-      border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    main section { padding: 28px 0; }
+    /* ── sections ── */
+    section { padding: 42px 0; }
+    section + section { border-top: 1px solid var(--border); }
 
     h2 {
-      margin: 0 0 12px;
-      font-family: "IBM Plex Serif", serif;
-      font-size: clamp(1.45rem, 2.4vw, 1.95rem);
-      letter-spacing: -0.25px;
+      font-family: "Crimson Pro", serif;
+      font-size: 1.65rem; margin-bottom: 14px;
     }
 
-    .panel {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 22px;
-      box-shadow: var(--shadow);
+    .section-text {
+      color: var(--dim); font-size: 1rem; max-width: 780px;
     }
+    .section-text + .section-text { margin-top: 12px; }
 
-    .two-col {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 16px;
-      align-items: start;
+    /* ── rollouts ── */
+    .rollout-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-top: 20px;
+      max-width: 640px; margin-left: auto; margin-right: auto;
     }
-
-    .bullets {
-      margin: 8px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    .bullets li { margin: 5px 0; }
-
-    p code, li code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-      padding: 1px 5px;
-      font-size: 0.88em;
-      color: #d9e6ff;
-    }
-
-    .media-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      max-width: 920px;
-      margin: 0 auto;
-    }
-
-    figure {
-      margin: 0;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 14px;
+    .rollout-grid figure {
+      background: #070a14; border: 1px solid var(--border); border-radius: 12px;
       overflow: hidden;
     }
-
-    figure img {
-      width: 100%;
-      display: block;
-      background: #03050b;
-      object-fit: contain;
+    .rollout-grid img {
+      width: 100%; display: block; object-fit: contain; background: #050811;
+    }
+    .rollout-grid figcaption {
+      text-align: center; padding: 8px; color: var(--dim); font-size: 0.88rem;
+      border-top: 1px solid var(--border);
     }
 
-    .media-grid figure img {
-      height: 245px;
+    /* ── method ── */
+    .method-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;
+      margin-top: 22px;
+    }
+    .method-item h3 {
+      font-family: "Inter", sans-serif;
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 6px;
+      color: var(--accent);
+    }
+    .method-item p {
+      color: var(--dim); font-size: 0.93rem; line-height: 1.55;
     }
 
-    figcaption {
-      color: var(--muted);
-      font-size: 0.93rem;
-      padding: 10px 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    figcaption a {
-      color: #9fb9ff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
+    /* ── results ── */
     .results-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-top: 20px;
+    }
+    .results-grid figure {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden;
+    }
+    .results-grid img {
+      width: 100%; display: block; object-fit: contain; background: #0d1020;
+    }
+    .results-grid figcaption {
+      text-align: center; padding: 8px; color: var(--dim); font-size: 0.88rem;
+      border-top: 1px solid var(--border);
     }
 
+    /* ── citation ── */
     .cite-box {
-      margin-top: 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--panel-2);
-      overflow-x: auto;
-      padding: 14px;
+      margin-top: 14px;
+      background: #080c18; border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px; overflow-x: auto;
     }
-
-    .cite-box code {
-      white-space: pre;
-      display: block;
-      color: #d7f4ff;
-      font-size: 0.9rem;
-      line-height: 1.45;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    .cite-box pre {
+      margin: 0; white-space: pre; color: #c8e0ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88rem; line-height: 1.5;
     }
-
-    .copy-row {
-      margin-top: 10px;
-      display: flex;
-      justify-content: flex-end;
+    .copy-row { margin-top: 10px; display: flex; justify-content: flex-end; }
+    .copy-btn {
+      cursor: pointer; font-family: inherit; font-size: 0.88rem; font-weight: 600;
+      color: #c0d0f0; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.16); border-radius: 8px;
+      padding: 7px 14px; transition: background 0.12s;
     }
+    .copy-btn:hover { background: rgba(255,255,255,0.08); }
 
+    /* ── footer ── */
     footer {
-      margin-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 24px 0 34px;
-      color: var(--muted);
-      font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+      padding: 22px 0 34px; color: var(--dim); font-size: 0.88rem;
+      text-align: center;
     }
 
-    @media (max-width: 920px) {
-      .two-col, .media-grid, .results-grid {
-        grid-template-columns: 1fr;
-      }
-      .media-grid figure img {
-        height: auto;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .topbar-inner { min-height: 70px; }
-      .lab img { width: 54px; height: 54px; }
-      .hero { padding-top: 48px; }
-      .contact { display: none; }
+    /* ── responsive ── */
+    @media (max-width: 680px) {
+      .method-grid { grid-template-columns: 1fr; }
+      .rollout-grid, .results-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .topbar-links { display: none; }
     }
   </style>
 </head>
 <body>
+
   <header class="topbar">
-    <div class="container topbar-inner">
-      <a class="lab" href="https://mehranagh20.github.io/AdaIMLE/" target="_blank" rel="noopener noreferrer">
-        <img src="https://mehranagh20.github.io/AdaIMLE/assets/img/avatar-icon.png" alt="APEX Lab logo" />
+    <div class="wrap">
+      <a class="lab" href="https://mehranagh20.github.io/AdaIMLE/" target="_blank" rel="noopener">
+        <img src="https://mehranagh20.github.io/AdaIMLE/assets/img/avatar-icon.png" alt="APEX Lab" />
         <span>APEX Lab</span>
       </a>
-      <a class="contact" href="mailto:maa143@sfu.ca">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.7"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.7"/></svg>
-        maa143@sfu.ca
-      </a>
+      <nav class="topbar-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#rollouts">Rollouts</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#citation">Citation</a>
+      </nav>
     </div>
   </header>
 
   <main>
+
     <section class="hero">
-      <div class="container">
-        <span class="kicker">ICLR 2026</span>
+      <div class="wrap">
+        <span class="venue">ICLR 2026</span>
         <h1>WIMLE: Uncertainty-Aware World Models with IMLE for Sample-Efficient Continuous Control</h1>
         <div class="authors">Mehran Aghabozorgi, Yanshu Zhang, Alireza Moazeni, Ke Li</div>
-        <p class="abstract">
-          WIMLE is a model-based reinforcement learning method that improves robustness of synthetic rollouts by combining
-          IMLE-based multi-modal world modeling with transition-level uncertainty weighting. Across DeepMind Control, HumanoidBench,
-          and MyoSuite, WIMLE improves sample efficiency and asymptotic performance on challenging continuous-control tasks.
-        </p>
-        <div class="hero-note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="1.7"/><path d="M8 14.5 11 11l2 2 3-3.5" stroke="currentColor" stroke-width="1.7"/></svg>
-          Evaluated on 40 diverse continuous-control tasks
-        </div>
-        <div class="actions">
-          <a class="btn btn-primary" href="https://openreview.net/forum?id=mzLOnTb3WH" target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h10l3 3v13H7z" stroke="currentColor" stroke-width="1.7"/><path d="M17 4v4h4" stroke="currentColor" stroke-width="1.7"/></svg>
+        <div class="affiliation">Simon Fraser University</div>
+        <div class="links">
+          <a class="link-primary" href="https://openreview.net/forum?id=mzLOnTb3WH" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 4h10l3 3v13H4V4h3z" stroke="currentColor" stroke-width="1.8"/><path d="M14 4v4h4" stroke="currentColor" stroke-width="1.8"/></svg>
             Paper
           </a>
-          <a class="btn btn-secondary" href="https://github.com/mehranagh20/wimle" target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 18c-4 1.2-4-2-5.5-2M15 20v-3.1c0-1 .1-1.4-.5-2 .1-1.2-.5-2.4.5-3.4-3.4-.4-7-1.7-7-7.5.1-1.5.6-2.5 1.5-3.4-.2-.4-.7-1.8.2-3.6 0 0 1.2-.4 3.8 1.5a13 13 0 0 1 7 0c2.6-1.9 3.8-1.5 3.8-1.5.9 1.8.4 3.2.2 3.6.9.9 1.4 1.9 1.5 3.4 0 5.8-3.6 7.1-7 7.5 1 .9 1 1.9 1 3.1V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <a class="link-ghost" href="https://github.com/mehranagh20/wimle" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.8.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 22 12c0-5.5-4.5-10-10-10z" fill="currentColor"/></svg>
             Code
+          </a>
+          <a class="link-ghost" href="mailto:maa143@sfu.ca">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="m3 7 9 6 9-6" stroke="currentColor" stroke-width="1.8"/></svg>
+            Contact
           </a>
         </div>
       </div>
     </section>
 
+    <section id="abstract">
+      <div class="wrap">
+        <h2>Abstract</h2>
+        <p class="section-text">
+          Model-based reinforcement learning promises better sample efficiency by learning a world model and using it to generate synthetic training data for the policy. In practice, however, compounding model errors bias the synthetic rollouts and often hurt more than they help—especially on high-dimensional tasks with complex contact dynamics.
+        </p>
+        <p class="section-text">
+          We introduce <strong>WIMLE</strong>, a model-based RL method that tackles this problem at its source. WIMLE trains world models with Implicit Maximum Likelihood Estimation (IMLE), a mode-covering generative approach that captures multi-modal transition dynamics instead of collapsing to a single average prediction. An ensemble of IMLE models provides both aleatoric and epistemic uncertainty estimates, which are used to automatically scale the influence of each synthetic transition during policy learning—keeping useful long-horizon information while suppressing unreliable predictions.
+        </p>
+        <p class="section-text">
+          We evaluate WIMLE on over <strong>40 continuous-control tasks</strong> across DeepMind Control Suite, HumanoidBench, and MyoSuite. WIMLE delivers substantial gains in sample efficiency and asymptotic performance over strong model-free and model-based baselines, achieving state-of-the-art results on the most challenging locomotion and manipulation tasks.
+        </p>
+      </div>
+    </section>
+
     <section id="rollouts">
-      <div class="container">
-        <h2>Policy Rollouts</h2>
-        <div class="media-grid">
+      <div class="wrap">
+        <h2>Learned Policies</h2>
+        <p class="section-text">WIMLE learns high-quality locomotion policies on hard DeepMind Control tasks using significantly fewer environment interactions than prior methods.</p>
+        <div class="rollout-grid">
           <figure>
-            <img src="figures/dog-900k.gif" alt="WIMLE rollout on DMC Dog task" loading="eager" />
-            <figcaption>DMC Dog rollout</figcaption>
+            <img src="figures/dog-900k.gif" alt="DMC Dog" loading="eager" />
+            <figcaption>DMC Dog</figcaption>
           </figure>
           <figure>
-            <img src="figures/humanoid-600k.gif" alt="WIMLE rollout on DMC Humanoid task" loading="eager" />
-            <figcaption>DMC Humanoid rollout</figcaption>
+            <img src="figures/humanoid-600k.gif" alt="DMC Humanoid" loading="eager" />
+            <figcaption>DMC Humanoid</figcaption>
           </figure>
         </div>
       </div>
     </section>
 
     <section id="method">
-      <div class="container panel two-col">
-        <div>
-          <h2>Method Overview</h2>
-          <p style="color: var(--muted); margin-top: 0;">
-            From the paper, WIMLE is built around a simple idea: use all synthetic rollout data, but trust each transition according to model confidence.
-          </p>
-          <ul class="bullets">
-            <li><strong>IMLE world model:</strong> transition dynamics are modeled with a conditional latent generator <code>g_theta(s, a, z)</code>, trained with nearest-sample IMLE assignments to improve mode coverage over unimodal predictors.</li>
-            <li><strong>Aleatoric + epistemic uncertainty:</strong> aleatoric uncertainty comes from latent sampling diversity; epistemic uncertainty comes from disagreement across an ensemble of IMLE world models.</li>
-            <li><strong>Uncertainty-weighted critic learning:</strong> each synthetic transition receives a confidence weight <code>w_i = 1 / (sigma_total_i + eps)</code>, and TD learning scales each error by this weight, reducing bias from uncertain predictions without hard rollout truncation.</li>
-          </ul>
-        </div>
-        <div>
-          <h2>Why it helps</h2>
-          <ul class="bullets">
-            <li>Longer-horizon model rollouts can still contribute useful supervision.</li>
-            <li>Unreliable synthetic targets are automatically down-weighted instead of discarded.</li>
-            <li>As real data grows, model confidence improves and synthetic data is used more aggressively in reliable regions.</li>
-          </ul>
+      <div class="wrap">
+        <h2>Method</h2>
+        <p class="section-text">WIMLE combines three ideas into a simple, effective model-based RL pipeline.</p>
+        <div class="method-grid">
+          <div class="method-item">
+            <h3>Multi-modal world model</h3>
+            <p>Most world models predict a single Gaussian output per state-action pair, averaging over the true diversity of outcomes. WIMLE instead uses IMLE—a latent-variable generator trained to cover all modes in the data. This lets the model faithfully represent stochastic and contact-rich dynamics where the same action can produce very different results.</p>
+          </div>
+          <div class="method-item">
+            <h3>Dual uncertainty estimation</h3>
+            <p>WIMLE distinguishes two sources of prediction error. Aleatoric uncertainty (irreducible randomness) is captured by sampling diverse futures from the IMLE generator. Epistemic uncertainty (limited data) is measured by disagreement across an ensemble of independently trained world models. Together they give a per-transition confidence signal.</p>
+          </div>
+          <div class="method-item">
+            <h3>Uncertainty-weighted learning</h3>
+            <p>Rather than truncating rollouts or discarding uncertain transitions, WIMLE keeps all synthetic data and re-weights each transition inversely by its estimated uncertainty. Confident predictions contribute fully; unreliable ones are down-weighted automatically. This preserves useful long-horizon signal while avoiding the bias that typically plagues model-based methods.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="results">
-      <div class="container">
+      <div class="wrap">
         <h2>Results</h2>
+        <p class="section-text">Learning curves across three benchmark suites. WIMLE consistently improves sample efficiency and final performance compared to strong model-free and model-based baselines.</p>
         <div class="results-grid">
           <figure>
-            <img src="figures/dmc_hard.jpg" alt="Learning curves on DMC hard tasks (dog and humanoid)" loading="lazy" />
-            <figcaption>DMC hard tasks (Dog and Humanoid)</figcaption>
+            <img src="figures/dmc_hard.jpg" alt="DMC hard tasks" loading="lazy" />
+            <figcaption>DMC — Dog &amp; Humanoid</figcaption>
           </figure>
           <figure>
-            <img src="figures/dmc.jpg" alt="Learning curves on full DeepMind Control Suite" loading="lazy" />
-            <figcaption>Full DeepMind Control Suite</figcaption>
+            <img src="figures/dmc.jpg" alt="Full DMC suite" loading="lazy" />
+            <figcaption>DMC — Full Suite</figcaption>
           </figure>
           <figure>
-            <img src="figures/hb.jpg" alt="Learning curves on HumanoidBench tasks" loading="lazy" />
+            <img src="figures/hb.jpg" alt="HumanoidBench" loading="lazy" />
             <figcaption>HumanoidBench</figcaption>
           </figure>
           <figure>
-            <img src="figures/myo.jpg" alt="Learning curves on MyoSuite tasks" loading="lazy" />
+            <img src="figures/myo.jpg" alt="MyoSuite" loading="lazy" />
             <figcaption>MyoSuite</figcaption>
           </figure>
         </div>
@@ -423,42 +327,40 @@
     </section>
 
     <section id="citation">
-      <div class="container panel">
+      <div class="wrap">
         <h2>Citation</h2>
-        <p style="color: var(--muted); margin: 0 0 6px;">If you find this work useful, please cite:</p>
+        <p class="section-text">If you find this work useful, please cite our paper:</p>
         <div class="cite-box">
-          <code id="citation-block">@inproceedings{aghabozorgi2026wimle,
+          <pre id="bibtex">@inproceedings{aghabozorgi2026wimle,
     title={{WIMLE}: Uncertainty-Aware World Models with {IMLE} for Sample-Efficient Continuous Control},
     author={Mehran Aghabozorgi and Yanshu Zhang and Alireza Moazeni and Ke Li},
     booktitle={The Fourteenth International Conference on Learning Representations},
     year={2026},
     url={https://openreview.net/forum?id=mzLOnTb3WH}
-}</code>
+}</pre>
         </div>
         <div class="copy-row">
-          <button id="copy-citation-btn" class="btn btn-secondary" type="button">Copy BibTeX</button>
+          <button class="copy-btn" id="copy-btn" type="button">Copy BibTeX</button>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer>
-    <div class="container">© 2026 WIMLE Project · APEX Lab · Simon Fraser University</div>
+    <div class="wrap">© 2026 WIMLE · APEX Lab · Simon Fraser University</div>
   </footer>
 
   <script>
-    const copyCitationBtn = document.getElementById("copy-citation-btn");
-    const citationBlock = document.getElementById("citation-block");
-    copyCitationBtn.addEventListener("click", async () => {
+    document.getElementById("copy-btn").addEventListener("click", async function () {
+      const btn = this;
       try {
-        await navigator.clipboard.writeText(citationBlock.textContent);
-        copyCitationBtn.textContent = "Copied!";
-      } catch (err) {
-        copyCitationBtn.textContent = "Copy failed";
+        await navigator.clipboard.writeText(document.getElementById("bibtex").textContent);
+        btn.textContent = "Copied!";
+      } catch (e) {
+        btn.textContent = "Copy failed";
       }
-      setTimeout(() => {
-        copyCitationBtn.textContent = "Copy BibTeX";
-      }, 1300);
+      setTimeout(() => { btn.textContent = "Copy BibTeX"; }, 1200);
     });
   </script>
 </body>
