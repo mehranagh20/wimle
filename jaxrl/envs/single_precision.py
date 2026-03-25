@@ -7,13 +7,14 @@ from gym.spaces import Box, Dict
 class SinglePrecision(gym.ObservationWrapper):
     def __init__(self, env):
         super().__init__(env)
+        source_space = self.env.observation_space
 
-        if isinstance(self.observation_space, Box):
-            obs_space = self.observation_space
+        if isinstance(source_space, Box):
+            obs_space = source_space
             self.observation_space = Box(obs_space.low, obs_space.high,
                                          obs_space.shape)
-        elif isinstance(self.observation_space, Dict):
-            obs_spaces = copy.copy(self.observation_space.spaces)
+        elif isinstance(source_space, Dict):
+            obs_spaces = copy.copy(source_space.spaces)
             for k, v in obs_spaces.items():
                 obs_spaces[k] = Box(v.low, v.high, v.shape)
             self.observation_space = Dict(obs_spaces)
