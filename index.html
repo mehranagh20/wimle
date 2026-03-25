@@ -207,6 +207,16 @@
 
     .bullets li { margin: 5px 0; }
 
+    p code, li code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 1px 5px;
+      font-size: 0.88em;
+      color: #d9e6ff;
+    }
+
     .media-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -372,9 +382,9 @@
             From the paper, WIMLE is built around a simple idea: use all synthetic rollout data, but trust each transition according to model confidence.
           </p>
           <ul class="bullets">
-            <li><strong>IMLE world model:</strong> transition dynamics are modeled with a conditional latent generator \(g_\theta(s,a,z)\), trained with nearest-sample IMLE assignments to improve mode coverage over unimodal predictors.</li>
+            <li><strong>IMLE world model:</strong> transition dynamics are modeled with a conditional latent generator <code>g_theta(s, a, z)</code>, trained with nearest-sample IMLE assignments to improve mode coverage over unimodal predictors.</li>
             <li><strong>Aleatoric + epistemic uncertainty:</strong> aleatoric uncertainty comes from latent sampling diversity; epistemic uncertainty comes from disagreement across an ensemble of IMLE world models.</li>
-            <li><strong>Uncertainty-weighted critic learning:</strong> each synthetic transition receives a weight \(w_i = 1/(\sigma_{total,i} + \epsilon)\), and TD learning uses \(w_i \cdot \delta_i^2\), reducing bias from uncertain predictions without hard rollout truncation.</li>
+            <li><strong>Uncertainty-weighted critic learning:</strong> each synthetic transition receives a confidence weight <code>w_i = 1 / (sigma_total_i + eps)</code>, and TD learning scales each error by this weight, reducing bias from uncertain predictions without hard rollout truncation.</li>
           </ul>
         </div>
         <div>
