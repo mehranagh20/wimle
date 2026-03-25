@@ -10,15 +10,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #050816;
-      --bg-soft: #0d1228;
-      --card: rgba(255, 255, 255, 0.06);
-      --card-border: rgba(255, 255, 255, 0.14);
-      --text: #e9eeff;
-      --muted: #adbbdf;
-      --accent: #70a5ff;
-      --accent-2: #66f4c0;
-      --shadow: 0 18px 45px rgba(0, 0, 0, 0.42);
+      --bg: #f4f7fb;
+      --bg-soft: #ffffff;
+      --card: #ffffff;
+      --card-border: #dce3ef;
+      --text: #0e1a2f;
+      --muted: #4f5d78;
+      --accent: #1648c6;
+      --accent-2: #00a2c7;
+      --shadow: 0 14px 36px rgba(22, 42, 90, 0.08);
       --maxw: 1160px;
     }
 
@@ -31,9 +31,8 @@
       font-family: "Source Sans 3", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(112, 165, 255, 0.26), transparent 58%),
-        radial-gradient(900px 500px at 90% 8%, rgba(102, 244, 192, 0.16), transparent 55%),
-        linear-gradient(180deg, #070b1b 0%, #04060f 100%);
+        radial-gradient(1100px 500px at 10% -10%, rgba(22, 72, 198, 0.14), transparent 60%),
+        linear-gradient(180deg, #f7f9fe 0%, #eef3fb 100%);
       line-height: 1.6;
     }
 
@@ -47,8 +46,8 @@
       top: 0;
       z-index: 20;
       backdrop-filter: blur(10px);
-      background: rgba(5, 8, 22, 0.72);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(247, 250, 255, 0.86);
+      border-bottom: 1px solid #dce4f2;
     }
 
     .topbar-inner {
@@ -62,7 +61,7 @@
     .lab {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-decoration: none;
       color: var(--text);
       font-weight: 700;
@@ -70,11 +69,12 @@
     }
 
     .lab img {
-      width: 34px;
-      height: 34px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid #c7d3e8;
       background: #fff;
+      box-shadow: 0 8px 20px rgba(25, 54, 116, 0.16);
     }
 
     .badge {
@@ -86,8 +86,8 @@
       text-decoration: none;
       padding: 7px 11px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #cfdaec;
+      background: #ffffff;
     }
 
     .hero {
@@ -141,15 +141,15 @@
     }
 
     .btn-primary {
-      color: #08122e;
-      background: linear-gradient(90deg, var(--accent), #a8c9ff);
-      box-shadow: 0 10px 24px rgba(112, 165, 255, 0.3);
+      color: #ffffff;
+      background: linear-gradient(90deg, #1f55d4, #2e72f0);
+      box-shadow: 0 10px 24px rgba(34, 92, 215, 0.24);
     }
 
     .btn-ghost {
-      color: #dbe6ff;
-      border-color: rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.03);
+      color: #244273;
+      border-color: #cbd8ef;
+      background: #f8fbff;
     }
 
     .metrics {
@@ -206,8 +206,8 @@
     }
 
     .img-card {
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: #fff;
+      border: 1px solid #d6dfed;
       border-radius: 16px;
       overflow: hidden;
     }
@@ -215,7 +215,16 @@
     .img-card img {
       width: 100%;
       display: block;
-      object-fit: cover;
+      object-fit: contain;
+      background: #f8fbff;
+    }
+
+    .img-card video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #f8fbff;
     }
 
     .img-card .cap {
@@ -226,8 +235,8 @@
 
     .cite-box {
       margin-top: 10px;
-      background: rgba(0, 0, 0, 0.28);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: #f8fbff;
+      border: 1px solid #cfdcf0;
       border-radius: 14px;
       padding: 14px;
       overflow-x: auto;
@@ -236,7 +245,7 @@
     .cite-box code {
       display: block;
       white-space: pre;
-      color: #d7f6ff;
+      color: #143063;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: 0.92rem;
       line-height: 1.45;
@@ -310,7 +319,6 @@
         <div class="cta-row">
           <a class="btn btn-primary" href="https://openreview.net/forum?id=mzLOnTb3WH" target="_blank" rel="noopener noreferrer">Paper (OpenReview)</a>
           <a class="btn btn-ghost" href="https://github.com/mehranagh20/wimle" target="_blank" rel="noopener noreferrer">Code</a>
-          <a class="btn btn-ghost" href="https://github.com/mehranagh20/wimle#getting-started" target="_blank" rel="noopener noreferrer">Training Instructions</a>
         </div>
         <div class="metrics">
           <div class="metric"><div class="v">40+</div><div class="k">Tasks Evaluated</div></div>
@@ -343,11 +351,17 @@
         <h2>Policy Rollouts</h2>
         <div class="grid-2">
           <figure class="img-card">
-            <img src="figures/dog-900k.gif" alt="WIMLE rollout on DMC Dog task" />
+            <video autoplay muted loop playsinline preload="metadata" aria-label="WIMLE rollout on DMC Dog task">
+              <source src="figures/dog-900k.mp4" type="video/mp4" />
+              <img src="figures/dog-900k.gif" alt="WIMLE rollout on DMC Dog task" />
+            </video>
             <figcaption class="cap">DMC Dog rollout (900k steps)</figcaption>
           </figure>
           <figure class="img-card">
-            <img src="figures/humanoid-600k.gif" alt="WIMLE rollout on DMC Humanoid task" />
+            <video autoplay muted loop playsinline preload="metadata" aria-label="WIMLE rollout on DMC Humanoid task">
+              <source src="figures/humanoid-600k.mp4" type="video/mp4" />
+              <img src="figures/humanoid-600k.gif" alt="WIMLE rollout on DMC Humanoid task" />
+            </video>
             <figcaption class="cap">DMC Humanoid rollout (600k steps)</figcaption>
           </figure>
         </div>
