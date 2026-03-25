@@ -80,6 +80,9 @@
     }
 
     .contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       color: var(--muted);
       text-decoration: none;
       font-size: 0.96rem;
@@ -127,6 +130,19 @@
       font-size: 1.03rem;
     }
 
+    .hero-note {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #d6e5ff;
+      font-size: 0.95rem;
+      border: 1px solid rgba(130, 167, 255, 0.4);
+      background: rgba(130, 167, 255, 0.09);
+      border-radius: 999px;
+      padding: 7px 12px;
+    }
+
     .actions {
       margin-top: 20px;
       display: flex;
@@ -137,6 +153,7 @@
     .btn {
       display: inline-flex;
       align-items: center;
+      gap: 8px;
       text-decoration: none;
       padding: 10px 15px;
       border-radius: 10px;
@@ -194,6 +211,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
+      max-width: 920px;
+      margin: 0 auto;
     }
 
     figure {
@@ -209,6 +228,10 @@
       display: block;
       background: #03050b;
       object-fit: contain;
+    }
+
+    .media-grid figure img {
+      height: 245px;
     }
 
     figcaption {
@@ -270,6 +293,9 @@
       .two-col, .media-grid, .results-grid {
         grid-template-columns: 1fr;
       }
+      .media-grid figure img {
+        height: auto;
+      }
     }
 
     @media (max-width: 560px) {
@@ -287,7 +313,10 @@
         <img src="https://mehranagh20.github.io/AdaIMLE/assets/img/avatar-icon.png" alt="APEX Lab logo" />
         <span>APEX Lab</span>
       </a>
-      <a class="contact" href="mailto:maa143@sfu.ca">maa143@sfu.ca</a>
+      <a class="contact" href="mailto:maa143@sfu.ca">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.7"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.7"/></svg>
+        maa143@sfu.ca
+      </a>
     </div>
   </header>
 
@@ -302,33 +331,19 @@
           IMLE-based multi-modal world modeling with transition-level uncertainty weighting. Across DeepMind Control, HumanoidBench,
           and MyoSuite, WIMLE improves sample efficiency and asymptotic performance on challenging continuous-control tasks.
         </p>
+        <div class="hero-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="1.7"/><path d="M8 14.5 11 11l2 2 3-3.5" stroke="currentColor" stroke-width="1.7"/></svg>
+          Evaluated on 40 diverse continuous-control tasks
+        </div>
         <div class="actions">
-          <a class="btn btn-primary" href="https://openreview.net/forum?id=mzLOnTb3WH" target="_blank" rel="noopener noreferrer">Paper</a>
-          <a class="btn btn-secondary" href="https://github.com/mehranagh20/wimle" target="_blank" rel="noopener noreferrer">Code</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="method">
-      <div class="container panel two-col">
-        <div>
-          <h2>Method Overview</h2>
-          <p style="color: var(--muted); margin-top: 0;">
-            WIMLE addresses common MBRL failure modes caused by model bias and compounding rollout errors:
-          </p>
-          <ul class="bullets">
-            <li><strong>IMLE world model:</strong> captures multi-modal transition dynamics instead of collapsing to unimodal predictions.</li>
-            <li><strong>Dual uncertainty:</strong> aleatoric uncertainty from latent sampling and epistemic uncertainty from ensembles.</li>
-            <li><strong>Uncertainty-weighted learning:</strong> all synthetic transitions are retained, but their influence is scaled by confidence.</li>
-          </ul>
-        </div>
-        <div>
-          <h2>Benchmarks</h2>
-          <ul class="bullets">
-            <li>DeepMind Control Suite (including hard Dog/Humanoid tasks)</li>
-            <li>HumanoidBench</li>
-            <li>MyoSuite</li>
-          </ul>
+          <a class="btn btn-primary" href="https://openreview.net/forum?id=mzLOnTb3WH" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h10l3 3v13H7z" stroke="currentColor" stroke-width="1.7"/><path d="M17 4v4h4" stroke="currentColor" stroke-width="1.7"/></svg>
+            Paper
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/mehranagh20/wimle" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 18c-4 1.2-4-2-5.5-2M15 20v-3.1c0-1 .1-1.4-.5-2 .1-1.2-.5-2.4.5-3.4-3.4-.4-7-1.7-7-7.5.1-1.5.6-2.5 1.5-3.4-.2-.4-.7-1.8.2-3.6 0 0 1.2-.4 3.8 1.5a13 13 0 0 1 7 0c2.6-1.9 3.8-1.5 3.8-1.5.9 1.8.4 3.2.2 3.6.9.9 1.4 1.9 1.5 3.4 0 5.8-3.6 7.1-7 7.5 1 .9 1 1.9 1 3.1V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Code
+          </a>
         </div>
       </div>
     </section>
@@ -339,18 +354,36 @@
         <div class="media-grid">
           <figure>
             <img src="figures/dog-900k.gif" alt="WIMLE rollout on DMC Dog task" loading="eager" />
-            <figcaption>
-              <span>DMC Dog rollout (900k steps)</span>
-              <a href="figures/dog-900k.mp4">High-quality MP4</a>
-            </figcaption>
+            <figcaption>DMC Dog rollout</figcaption>
           </figure>
           <figure>
             <img src="figures/humanoid-600k.gif" alt="WIMLE rollout on DMC Humanoid task" loading="eager" />
-            <figcaption>
-              <span>DMC Humanoid rollout (600k steps)</span>
-              <a href="figures/humanoid-600k.mp4">High-quality MP4</a>
-            </figcaption>
+            <figcaption>DMC Humanoid rollout</figcaption>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="container panel two-col">
+        <div>
+          <h2>Method Overview</h2>
+          <p style="color: var(--muted); margin-top: 0;">
+            From the paper, WIMLE is built around a simple idea: use all synthetic rollout data, but trust each transition according to model confidence.
+          </p>
+          <ul class="bullets">
+            <li><strong>IMLE world model:</strong> transition dynamics are modeled with a conditional latent generator \(g_\theta(s,a,z)\), trained with nearest-sample IMLE assignments to improve mode coverage over unimodal predictors.</li>
+            <li><strong>Aleatoric + epistemic uncertainty:</strong> aleatoric uncertainty comes from latent sampling diversity; epistemic uncertainty comes from disagreement across an ensemble of IMLE world models.</li>
+            <li><strong>Uncertainty-weighted critic learning:</strong> each synthetic transition receives a weight \(w_i = 1/(\sigma_{total,i} + \epsilon)\), and TD learning uses \(w_i \cdot \delta_i^2\), reducing bias from uncertain predictions without hard rollout truncation.</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Why it helps</h2>
+          <ul class="bullets">
+            <li>Longer-horizon model rollouts can still contribute useful supervision.</li>
+            <li>Unreliable synthetic targets are automatically down-weighted instead of discarded.</li>
+            <li>As real data grows, model confidence improves and synthetic data is used more aggressively in reliable regions.</li>
+          </ul>
         </div>
       </div>
     </section>
