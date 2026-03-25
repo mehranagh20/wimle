@@ -113,7 +113,7 @@ The numbers reported in the paper are bundled under [`results/`](results/). Curv
 
 ## Star History
 
-[![Star History Chart](https://starchart.cc/mehranagh20/wimle.svg?variant=adaptive)](https://starchart.cc/mehranagh20/wimle)
+[![Star History Chart](https://api.star-history.com/svg?repos=mehranagh20/wimle&type=Date)](https://star-history.com/#mehranagh20/wimle&Date)
 
 ## Citation
 
