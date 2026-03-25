@@ -1,0 +1,17 @@
+jaxrl/.DS_Store
+.DS_Store
+.DS_Store
+jaxrl/.DS_Store
+scripts/.DS_Store
+.vscode
+**/__pycache__/
+wandb
+experiments/
+notebooks/
+compare/
+gamma-models/
+grid_logs/
+grid_runner_state.pkl
+*mp4
+MUJOCO_LOG.TXT
+evaluation/

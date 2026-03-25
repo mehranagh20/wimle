@@ -1,0 +1,23 @@
+absl-py
+numpy==1.26.4
+scipy==1.12.0
+tqdm
+gymnasium
+mujoco==3.1.6
+
+dm_control==1.0.20
+# We explicitly pin cuDNN 8.9 because JAX 0.4.19 was compiled for it (cudnn89). Unpinned installs cuDNN 9 which breaks JAX.
+nvidia-cudnn-cu12==8.9.7.29
+# We also explicitly install nvcc to get a dynamic ptxas for JAX compilation.
+nvidia-cuda-nvcc-cu12
+jax[cuda12_pip]==0.4.19
+-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+flax==0.7.5
+optax==0.2.2
+tfp-nightly==0.20.0.dev20230524
+wandb
+ml_collections
+imageio
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.3.1+cpu
+-e git+https://github.com/carlosferrazza/humanoid-bench.git#egg=humanoid_bench
