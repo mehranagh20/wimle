@@ -12,7 +12,7 @@
 <table>
   <tr>
     <td align="center"><img src="figures/dog-900k.gif" alt="WIMLE policy rollout on DMC" width="256" /></td>
-    <td align="center"><img src="figures/humanoid-600k.gif" alt="WIMLE policy rollout on DMC" width="256" /></td>
+    <td align="center"><img src="figures/humanoid2.gif" alt="WIMLE policy rollout on DMC" width="256" /></td>
   </tr>
 </table>
 
