@@ -29,7 +29,7 @@ def define_train_parallel_flags() -> None:
     flags.DEFINE_integer('model_updates_per_step', 10, 'Model updates per step (default: same as updates_per_step).')
     flags.DEFINE_integer('eval_interval', 10000, 'Evaluate every N steps.')
     flags.DEFINE_integer('eval_episodes', 5, 'Episodes per evaluation.')
-    flags.DEFINE_integer('save_freq', 500000000, 'Save policy every N steps.')
+    flags.DEFINE_integer('save_freq', 50000, 'Save policy every N steps.')
 
     # WandB
     flags.DEFINE_string('wandb_project', 'WIMLE', 'Wandb project name.')

@@ -167,6 +167,31 @@ class make_env_hb(gym.Env):
     def model_prediction_to_observation(self, cur_observations, pred_current_block):
         return pred_current_block
 
+    def _video_fps(self):
+        env = self.envs[0]
+        for _ in range(12):
+            try:
+                if hasattr(env, "dt"):
+                    dt = float(env.dt)
+                    if dt > 0:
+                        return max(1, int(round(1.0 / dt)))
+            except Exception:
+                pass
+            try:
+                unwrapped = getattr(env, "unwrapped", None)
+                if unwrapped is not None and hasattr(unwrapped, "model") and hasattr(unwrapped.model, "opt"):
+                    model_dt = float(unwrapped.model.opt.timestep)
+                    frame_skip = float(getattr(unwrapped, "frame_skip", 1))
+                    if model_dt > 0 and frame_skip > 0:
+                        return max(1, int(round(1.0 / (model_dt * frame_skip))))
+            except Exception:
+                pass
+            next_env = getattr(env, "env", None)
+            if next_env is None:
+                break
+            env = next_env
+        return 30
+
     def normalize_score(self, raw_return):
         """
         Normalize return using SimbaV2's success normalization formula:
@@ -227,7 +252,7 @@ class make_env_hb(gym.Env):
                     # W&B expects shape (time, channels, height, width) for RGB arrays
                     if len(video_array.shape) == 4 and video_array.shape[-1] == 3:
                         video_array = np.transpose(video_array, (0, 3, 1, 2))
-                    wandb.log({f"eval_video/{self.env_name}": wandb.Video(video_array, fps=30, format="mp4")}, step=step)
+                    wandb.log({f"eval_video/{self.env_name}": wandb.Video(video_array, fps=self._video_fps(), format="mp4")}, step=step)
                 except Exception as e:
                     print(f"Failed to log video to wandb: {e}")
                     

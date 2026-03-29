@@ -118,6 +118,7 @@ class make_env_dmc(gym.Env):
     def __init__(self, env_name: str, seed: int, num_envs: int, max_t=1000):
         env_fns = [lambda i=i: _make_env_dmc(env_name, seed + i) for i in range(num_envs)]
         self.envs = [env_fn() for env_fn in env_fns]
+        self.env_name = env_name
         self.max_t = max_t
         self.num_seeds = len(self.envs)
         self.action_space = spaces.Box(low=self.envs[0].action_space.low[None].repeat(len(self.envs), axis=0),
@@ -175,6 +176,29 @@ class make_env_dmc(gym.Env):
     def model_prediction_to_observation(self, cur_observations, pred_current_block):
         return pred_current_block
 
+    def _video_fps(self):
+        env = self.envs[0]
+        for _ in range(12):
+            try:
+                if hasattr(env, "control_timestep"):
+                    dt = float(env.control_timestep())
+                    if dt > 0:
+                        return max(1, int(round(1.0 / dt)))
+            except Exception:
+                pass
+            try:
+                if hasattr(env, "dt"):
+                    dt = float(env.dt)
+                    if dt > 0:
+                        return max(1, int(round(1.0 / dt)))
+            except Exception:
+                pass
+            next_env = getattr(env, "env", None)
+            if next_env is None:
+                break
+            env = next_env
+        return 30
+
     def evaluate(self, agent, num_episodes=5, save_video=False, step=None):
         num_seeds = self.num_seeds
         returns_eval = []
@@ -204,7 +228,7 @@ class make_env_dmc(gym.Env):
                         video_array = np.transpose(video_array, (0, 3, 1, 2))
                     # Fallback environment name handling
                     env_name = getattr(self, 'env_name', 'dmc_env')
-                    wandb.log({f"eval_video/{env_name}": wandb.Video(video_array, fps=30, format="mp4")}, step=step)
+                    wandb.log({f"eval_video/{env_name}": wandb.Video(video_array, fps=self._video_fps(), format="mp4")}, step=step)
                 except Exception as e:
                     print(f"Failed to log video to wandb: {e}")
                     

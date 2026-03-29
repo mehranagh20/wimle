@@ -132,6 +132,6 @@ If you find this code or our paper useful in your research, please cite our work
     author={Mehran Aghabozorgi and Yanshu Zhang and Alireza Moazeni and Ke Li},
     booktitle={The Fourteenth International Conference on Learning Representations},
     year={2026},
-    url={https://openreview.net/forum?id=mzLOnTb3WH}
+    url={https://arxiv.org/abs/2602.14351}
 }
 ```
