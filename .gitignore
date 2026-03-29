@@ -12,6 +12,5 @@ compare/
 gamma-models/
 grid_logs/
 grid_runner_state.pkl
-*mp4
 MUJOCO_LOG.TXT
 evaluation/

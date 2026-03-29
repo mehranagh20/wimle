@@ -123,9 +123,9 @@
 
     /* ── rollouts ── */
     .rollout-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      display: grid; grid-template-columns: 1fr; gap: 14px;
       margin-top: 20px;
-      max-width: 640px; margin-left: auto; margin-right: auto;
+      max-width: 700px; margin-left: auto; margin-right: auto;
     }
     .rollout-grid figure {
       background: #070a14; border: 1px solid var(--border); border-radius: 12px;
@@ -133,6 +133,19 @@
     }
     .rollout-grid img {
       width: 100%; display: block; object-fit: contain; background: #050811;
+    }
+    .rollout-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 6px;
+      background: #050811;
+    }
+    .rollout-grid video {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      background: #050811;
     }
     .rollout-grid figcaption {
       text-align: center; padding: 8px; color: var(--dim); font-size: 0.88rem;
@@ -168,6 +181,23 @@
     .results-grid figcaption {
       text-align: center; padding: 8px; color: var(--dim); font-size: 0.88rem;
       border-top: 1px solid var(--border);
+    }
+
+    /* ── presentation video ── */
+    .talk-wrap {
+      margin-top: 16px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #080c18;
+    }
+    .talk-wrap video {
+      width: 100%;
+      display: block;
+      background: #000;
     }
 
     /* ── citation ── */
@@ -218,6 +248,7 @@
         <a href="#rollouts">Rollouts</a>
         <a href="#method">Method</a>
         <a href="#results">Results</a>
+        <a href="#talk">Talk</a>
         <a href="#citation">Citation</a>
       </nav>
     </div>
@@ -235,6 +266,10 @@
           <a class="link-primary" href="https://openreview.net/forum?id=mzLOnTb3WH" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 4h10l3 3v13H4V4h3z" stroke="currentColor" stroke-width="1.8"/><path d="M14 4v4h4" stroke="currentColor" stroke-width="1.8"/></svg>
             Paper
+          </a>
+          <a class="link-ghost" href="#talk">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 5h8a4 4 0 0 1 4 4v10H6z" stroke="currentColor" stroke-width="1.8"/><path d="m18 10 4-2v8l-4-2z" stroke="currentColor" stroke-width="1.8"/></svg>
+            Video
           </a>
           <a class="link-ghost" href="https://github.com/mehranagh20/wimle" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.8.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 22 12c0-5.5-4.5-10-10-10z" fill="currentColor"/></svg>
@@ -269,12 +304,30 @@
         <p class="section-text">WIMLE learns high-quality locomotion policies on hard DeepMind Control tasks using significantly fewer environment interactions than prior methods.</p>
         <div class="rollout-grid">
           <figure>
-            <img src="figures/dog-900k.gif" alt="DMC Dog" loading="eager" />
-            <figcaption>DMC Dog</figcaption>
+            <div class="rollout-pair">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="figures/humanoid-600k.mp4" type="video/mp4" />
+                <img src="figures/humanoid-600k.gif" alt="DMC Humanoid rollout 1" loading="eager" />
+              </video>
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="figures/humanoid2.mp4" type="video/mp4" />
+                <img src="figures/humanoid-600k.gif" alt="DMC Humanoid rollout 2" loading="eager" />
+              </video>
+            </div>
+            <figcaption>DMC-Humanoid</figcaption>
           </figure>
           <figure>
-            <img src="figures/humanoid-600k.gif" alt="DMC Humanoid" loading="eager" />
-            <figcaption>DMC Humanoid</figcaption>
+            <div class="rollout-pair">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="figures/dog-900k.mp4" type="video/mp4" />
+                <img src="figures/dog-900k.gif" alt="DMC Dog rollout 1" loading="eager" />
+              </video>
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="figures/dog2.mp4" type="video/mp4" />
+                <img src="figures/dog-900k.gif" alt="DMC Dog rollout 2" loading="eager" />
+              </video>
+            </div>
+            <figcaption>DMC-Dog</figcaption>
           </figure>
         </div>
       </div>
@@ -322,6 +375,18 @@
             <img src="figures/myo.jpg" alt="MyoSuite" loading="lazy" />
             <figcaption>MyoSuite</figcaption>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="talk">
+      <div class="wrap">
+        <h2>Video Presentation</h2>
+        <p class="section-text">A full project talk covering motivation, method, and benchmark results.</p>
+        <div class="talk-wrap">
+          <video controls preload="metadata">
+            <source src="figures/wimle_iclr2026_presentation.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </section>
