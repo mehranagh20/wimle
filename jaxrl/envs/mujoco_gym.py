@@ -5,6 +5,7 @@ import gymnasium as gymn
 
 from jaxrl.envs.ant_truncated_obs import AntTruncatedObsEnv
 from jaxrl.envs.humanoid_truncated_obs import HumanoidTruncatedObsEnv
+from jaxrl.utils import capture_seed_frames, log_seed_videos_to_wandb
 
 # Standard Gymnasium v4 MuJoCo tasks
 # These environments have built-in termination conditions:
@@ -25,6 +26,7 @@ class make_env_mujoco(gym.Env):
     def __init__(self, env_name='HalfCheetah-v4', num_envs=2, seed=0, max_t=1000):
         np.random.seed(seed)
         seeds = np.random.randint(0, 1e6, (num_envs))
+        self.env_name = env_name
         self.max_t = max_t
         # For Ant and Humanoid, match the truncated-observation implementations used in InfoProp.
         if env_name == "Humanoid-v4":
@@ -141,13 +143,10 @@ class make_env_mujoco(gym.Env):
             returns = np.zeros(n_seeds)
             # Track which parallel environments have finished their episode.
             has_terminated = np.zeros(n_seeds, dtype=bool)
-            frames = []
+            frames = [[] for _ in range(n_seeds)]
             for i in range(self.max_t):
                 if save_video and _episode == 0:
-                    try:
-                        frames.append(self.envs[0].render())
-                    except Exception:
-                        pass
+                    capture_seed_frames(self.envs, frames, lambda env: env.render())
                 
                 actions = agent.sample_actions(observations, temperature=0.0)
                 next_observations, rewards, terms, truns, _ = self.step(actions)
@@ -161,14 +160,10 @@ class make_env_mujoco(gym.Env):
                 if has_terminated.all():
                     break
                     
-            if save_video and _episode == 0 and len(frames) > 0:
-                import wandb
+            if save_video and _episode == 0:
                 try:
-                    video_array = np.array(frames)
-                    if len(video_array.shape) == 4 and video_array.shape[-1] == 3:
-                        video_array = np.transpose(video_array, (0, 3, 1, 2))
                     env_name = getattr(self, 'env_name', 'mujoco_env')
-                    wandb.log({f"eval_video/{env_name}": wandb.Video(video_array, fps=self._video_fps(), format="mp4")}, step=step)
+                    log_seed_videos_to_wandb(frames, env_name, fps=self._video_fps(), step=step)
                 except Exception as e:
                     print(f"Failed to log video to wandb: {e}")
                     

@@ -4,6 +4,7 @@ from gymnasium import spaces
 import gymnasium as gymn
 import myosuite
 import jax.numpy as jnp
+from jaxrl.utils import capture_seed_frames, log_seed_videos_to_wandb
 
 MYOSUITE_TASKS = {
     'myo-test' : 'myoElbowPose1D6MRandom-v0',
@@ -23,6 +24,7 @@ class make_env_myo(gym.Env):
     def __init__(self, env_name='myo-test', num_envs=2, seed=0, max_t=100):
         np.random.seed(seed)
         seeds = np.random.randint(0,1e6,(num_envs))
+        self.env_name = env_name
         self.max_t = max_t
         self.envs = [gymn.make(MYOSUITE_TASKS[env_name]) for seed in seeds]
         self.num_envs = len(self.envs)
@@ -134,16 +136,16 @@ class make_env_myo(gym.Env):
             observations = self.reset()
             returns = np.zeros(n_seeds)
             goal = np.zeros(n_seeds)
-            frames = []
+            frames = [[] for _ in range(n_seeds)]
             for i in range(self.max_t): # CHANGE?
                 if save_video and _episode == 0:
-                    try:
-                        if hasattr(self.envs[0], 'render_mode'):
-                            frames.append(self.envs[0].render())
-                        else:
-                            frames.append(self.envs[0].render(mode='rgb_array'))
-                    except Exception:
-                        pass
+                    capture_seed_frames(
+                        self.envs,
+                        frames,
+                        lambda env: env.render()
+                        if hasattr(env, 'render_mode')
+                        else env.render(mode='rgb_array'),
+                    )
                 
                 actions = agent.sample_actions(observations, temperature=0.0)
                 next_observations, rewards, terms, truns, goals_ = self.step(actions)
@@ -151,14 +153,10 @@ class make_env_myo(gym.Env):
                 returns += rewards
                 observations = next_observations            
                 
-            if save_video and _episode == 0 and len(frames) > 0:
-                import wandb
+            if save_video and _episode == 0:
                 try:
-                    video_array = np.array(frames)
-                    if len(video_array.shape) == 4 and video_array.shape[-1] == 3:
-                        video_array = np.transpose(video_array, (0, 3, 1, 2))
                     env_name = getattr(self, 'env_name', 'myo_env')
-                    wandb.log({f"eval_video/{env_name}": wandb.Video(video_array, fps=self._video_fps(), format="mp4")}, step=step)
+                    log_seed_videos_to_wandb(frames, env_name, fps=self._video_fps(), step=step)
                 except Exception as e:
                     print(f"Failed to log video to wandb: {e}")
                     

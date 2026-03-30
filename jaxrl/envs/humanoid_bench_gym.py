@@ -3,6 +3,7 @@ import numpy as np
 from gymnasium import spaces
 import gymnasium as gymn
 import jax.numpy as jnp
+from jaxrl.utils import capture_seed_frames, log_seed_videos_to_wandb
 
 # Random scores for locomotion tasks (from SimbaV2)
 HB_RANDOM_SCORE = {
@@ -227,14 +228,11 @@ class make_env_hb(gym.Env):
             returns = np.zeros(n_seeds)
             success = np.zeros(n_seeds)
             has_terminated = np.zeros(n_seeds)
-            frames = []
+            frames = [[] for _ in range(n_seeds)]
             
             for i in range(self.max_t):
                 if save_video and _episode == 0:
-                    try:
-                        frames.append(self.envs[0].render())
-                    except Exception:
-                        pass
+                    capture_seed_frames(self.envs, frames, lambda env: env.render())
                 
                 actions = agent.sample_actions(observations, temperature=0.0)
                 next_observations, rewards, terms, truns, successes_ = self.step(actions)
@@ -245,14 +243,11 @@ class make_env_hb(gym.Env):
                 if has_terminated.all():
                     break
                     
-            if save_video and _episode == 0 and len(frames) > 0:
-                import wandb
+            if save_video and _episode == 0:
                 try:
-                    video_array = np.array(frames)
-                    # W&B expects shape (time, channels, height, width) for RGB arrays
-                    if len(video_array.shape) == 4 and video_array.shape[-1] == 3:
-                        video_array = np.transpose(video_array, (0, 3, 1, 2))
-                    wandb.log({f"eval_video/{self.env_name}": wandb.Video(video_array, fps=self._video_fps(), format="mp4")}, step=step)
+                    log_seed_videos_to_wandb(
+                        frames, self.env_name, fps=self._video_fps(), step=step
+                    )
                 except Exception as e:
                     print(f"Failed to log video to wandb: {e}")
                     

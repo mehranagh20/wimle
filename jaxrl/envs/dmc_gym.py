@@ -8,6 +8,7 @@ from typing import Dict, Optional, OrderedDict, Tuple
 from dm_control import suite
 from dm_env import specs
 from gym import core, spaces
+from jaxrl.utils import capture_seed_frames, log_seed_videos_to_wandb
 
 TimeStep = Tuple[np.ndarray, float, bool, dict]
 _EGL_PATCH_APPLIED = False
@@ -206,13 +207,14 @@ class make_env_dmc(gym.Env):
             observations = self.reset()
 
             returns = np.zeros(num_seeds)
-            frames = []
+            frames = [[] for _ in range(num_seeds)]
             for i in range(self.max_t): # CHANGE?
                 if save_video and episode == 0:
-                    try:
-                        frames.append(self.envs[0].render(mode='rgb_array', height=256, width=256))
-                    except Exception:
-                        pass
+                    capture_seed_frames(
+                        self.envs,
+                        frames,
+                        lambda env: env.render(mode='rgb_array', height=256, width=256),
+                    )
                 
                 actions = agent.sample_actions(observations, temperature=0.0)
                 next_observations, rewards, terms, truns, goals = self.step(actions)
@@ -220,15 +222,11 @@ class make_env_dmc(gym.Env):
                 returns += rewards
                 observations = next_observations            
                 
-            if save_video and episode == 0 and len(frames) > 0:
-                import wandb
+            if save_video and episode == 0:
                 try:
-                    video_array = np.array(frames)
-                    if len(video_array.shape) == 4 and video_array.shape[-1] == 3:
-                        video_array = np.transpose(video_array, (0, 3, 1, 2))
                     # Fallback environment name handling
                     env_name = getattr(self, 'env_name', 'dmc_env')
-                    wandb.log({f"eval_video/{env_name}": wandb.Video(video_array, fps=self._video_fps(), format="mp4")}, step=step)
+                    log_seed_videos_to_wandb(frames, env_name, fps=self._video_fps(), step=step)
                 except Exception as e:
                     print(f"Failed to log video to wandb: {e}")
                     

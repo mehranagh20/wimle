@@ -90,6 +90,33 @@ def log_to_wandb_if_time_to(step, infos, eval_interval, suffix: str = ''):
         wandb.log(dict_to_log, step=step)
 
 
+def capture_seed_frames(envs, frames_by_seed, render_fn):
+    """Capture one frame per seed env and append into frames_by_seed."""
+    for seed_idx, env in enumerate(envs):
+        try:
+            frame = render_fn(env)
+            if frame is not None:
+                frames_by_seed[seed_idx].append(frame)
+        except Exception:
+            pass
+
+
+def log_seed_videos_to_wandb(frames_by_seed, env_name, fps, step, prefix='eval_video'):
+    """Log one video per seed to W&B under <prefix>/<env_name>/seed<idx>."""
+    videos_to_log = {}
+    for seed_idx, seed_frames in enumerate(frames_by_seed):
+        if len(seed_frames) == 0:
+            continue
+        video_array = np.array(seed_frames)
+        if len(video_array.shape) == 4 and video_array.shape[-1] == 3:
+            video_array = np.transpose(video_array, (0, 3, 1, 2))
+        videos_to_log[f"{prefix}/{env_name}/seed{seed_idx}"] = wandb.Video(
+            video_array, fps=fps, format="mp4"
+        )
+    if len(videos_to_log) > 0:
+        wandb.log(videos_to_log, step=step)
+
+
 def evaluate_agents_if_time(i, agents, eval_envs, eval_interval, eval_episodes, save_video=False):
     """Evaluate multiple agents across multiple environments if it's time to evaluate."""
     if i % eval_interval != 0:
