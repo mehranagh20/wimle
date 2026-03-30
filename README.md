@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<a href="https://arxiv.org/abs/2602.14351"><img src="https://img.shields.io/badge/arXiv-2602.14351-b31b1b?logo=arxiv&logoColor=white" alt="arXiv 2602.14351" /></a>
+<a href="https://arxiv.org/abs/2602.14351"><img src="https://img.shields.io/badge/arXiv-ICLR--2026-b31b1b?logo=arxiv&logoColor=white" alt="arXiv ICLR-2026" /></a>
 <a href="https://www.linkedin.com/in/mehran-aghabozorg/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
 <a href="mailto:maa143@sfu.ca"><img src="https://img.shields.io/badge/Email-maa143%40sfu.ca-D14836?logo=gmail&logoColor=white" alt="Email" /></a>
 <a href="https://mehranagh20.github.io/wimle"><img src="https://img.shields.io/badge/Website-WIMLE%20Project-66C2A5?logo=googlechrome&logoColor=white" alt="Project Website" /></a>
