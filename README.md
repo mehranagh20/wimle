@@ -11,8 +11,8 @@
 
 <table>
   <tr>
-    <td align="center"><video src="figures/dog1.webm" width="256" autoplay loop muted playsinline></video></td>
-    <td align="center"><video src="figures/humanoid1.mp4" width="256" autoplay loop muted playsinline></video></td>
+    <td align="center"><a href="figures/dog1.webm"><img src="figures/dog1.gif" alt="WIMLE dog rollout (click for video)" width="256" /></a></td>
+    <td align="center"><a href="figures/humanoid1.mp4"><img src="figures/humanoid1.gif" alt="WIMLE humanoid rollout (click for video)" width="256" /></a></td>
   </tr>
 </table>
 
