@@ -11,8 +11,8 @@
 
 <table>
   <tr>
-    <td align="center"><img src="figures/dog-900k.gif" alt="WIMLE policy rollout on DMC" width="256" /></td>
-    <td align="center"><img src="figures/humanoid2.gif" alt="WIMLE policy rollout on DMC" width="256" /></td>
+    <td align="center"><video src="figures/dog1.webm" width="256" autoplay loop muted playsinline></video></td>
+    <td align="center"><video src="figures/humanoid1.mp4" width="256" autoplay loop muted playsinline></video></td>
   </tr>
 </table>
 
